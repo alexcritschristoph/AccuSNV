@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 400 160"
+   role="img"
+   aria-label="How AccuSNV detects recombinant SNVs: nearby preliminary SNVs are paired within a 1000 bp window, their mutant allele frequencies are correlated across ingroup samples, and pairs above r = 0.75 are flagged Whether_recomb = 1 — kept in the tables but excluded from the tree, dN/dS and dMRCA."
+   font-family="system-ui, '-apple-system', 'Segoe UI', sans-serif"
+   font-size="12px"
+   version="1.1"
+   id="svg44"
+   sodipodi:docname="recombination_detection.svg"
+   width="400"
+   height="160"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview44"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="225.39029"
+     inkscape:cy="120.38493"
+     inkscape:window-width="2560"
+     inkscape:window-height="1355"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g44" />
+  <title
+     id="title1">Recombinant SNV detection in AccuSNV</title>
+  <desc
+     id="desc1">Three stages: window nearby SNVs, correlate mutant allele frequency across samples, flag correlated pairs without removing them.</desc>
+  <style
+     id="style1">
+    svg { color: #24292f; }
+    @media (prefers-color-scheme: dark) { svg { color: #e6edf3; } }
+    .h { font-size: 13px; font-weight: 600; }
+    .s { font-size: 11px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+  </style>
+  <defs
+     id="defs2">
+    <marker
+       id="a"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="currentColor"
+         id="path1" />
+    </marker>
+    <marker
+       id="ac"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#e2643f"
+         id="path2" />
+    </marker>
+  </defs>
+  <g
+     fill="currentColor"
+     stroke="currentColor"
+     id="g44">
+    <!-- ============ 1 · window ============ -->
+    <text
+       class="s"
+       x="130.07286"
+       y="52.863956"
+       text-anchor="middle"
+       stroke="none"
+       opacity="0.75"
+       id="text3"
+       style="fill:#ff0000">±1000 bp (--recomb_distance)</text>
+    <rect
+       x="82.917694"
+       y="61.858921"
+       width="68.149864"
+       height="38.231899"
+       rx="1.7624966"
+       fill="currentColor"
+       fill-opacity="0.07"
+       stroke="currentColor"
+       stroke-opacity="0.35"
+       stroke-dasharray="4, 3"
+       id="rect3"
+       style="stroke-width:0.76882" />
+    <line
+       x1="14.949747"
+       y1="80.974876"
+       x2="236.78679"
+       y2="80.974876"
+       stroke-opacity="0.45"
+       id="line3"
+       style="stroke-width:0.945782" />
+    <g
+       stroke-width="2"
+       id="g8"
+       style="fill:#ff0000"
+       transform="translate(-25.050253,-79.025126)">
+      <line
+         x1="50"
+         y1="146"
+         x2="50"
+         y2="174"
+         stroke-opacity=".35"
+         id="line4"
+         style="fill:#ff0000;stroke:#f75c5c;stroke-opacity:1" />
+      <line
+         x1="118"
+         y1="146"
+         x2="118"
+         y2="174"
+         id="line5"
+         style="fill:#ff0000" />
+      <line
+         x1="146"
+         y1="146"
+         x2="146"
+         y2="174"
+         id="line6"
+         style="fill:#ff0000" />
+      <line
+         x1="172"
+         y1="146"
+         x2="172"
+         y2="174"
+         id="line7"
+         style="fill:#ff0000" />
+      <line
+         x1="254"
+         y1="146"
+         x2="254"
+         y2="174"
+         stroke-opacity=".35"
+         id="line8"
+         style="fill:#ff0000;stroke:#f75c5c;stroke-opacity:1" />
+    </g>
+    <circle
+       cx="92.949745"
+       cy="66.974876"
+       r="3.5"
+       fill="currentColor"
+       stroke="none"
+       id="circle8" />
+    <g
+       stroke="none"
+       text-anchor="middle"
+       id="g13"
+       transform="translate(-25.050253,-81.853553)"
+       style="fill:#000000;fill-opacity:1">
+      <text
+         x="118"
+         y="194"
+         id="text8"
+         style="fill:#000000;fill-opacity:1">p₁</text>
+      <text
+         x="146"
+         y="194"
+         id="text9"
+         style="fill:#000000;fill-opacity:1">p₂</text>
+      <text
+         x="172"
+         y="194"
+         id="text10"
+         style="fill:#000000;fill-opacity:1">p₃</text>
+      <text
+         class="s"
+         x="143.14035"
+         y="211.75735"
+         opacity="0.75"
+         id="text11"
+         style="fill:#000000;fill-opacity:1" />
+    </g>
+    <!-- ============ 2 · correlate ============ -->
+    <g
+       stroke="none"
+       text-anchor="middle"
+       id="g18"
+       transform="translate(-121.77134,-70.054563)">
+      <text
+         x="411"
+         y="84"
+         id="text16">p₁</text>
+      <text
+         x="451"
+         y="84"
+         id="text17">p₂</text>
+      <text
+         x="491"
+         y="84"
+         id="text18">p₃</text>
+    </g>
+    <text
+       class="s"
+       x="-92.945442"
+       y="264.22864"
+       stroke="none"
+       text-anchor="middle"
+       opacity="0.75"
+       transform="rotate(-90)"
+       id="text19"
+       style="fill:#000000;fill-opacity:1">Isolate samples</text>
+    <g
+       stroke="currentColor"
+       stroke-opacity="0.35"
+       fill="currentColor"
+       id="g33"
+       transform="translate(-121.77134,-70.054563)">
+      <!-- p1 -->
+      <rect
+         x="396"
+         y="94"
+         width="30"
+         height="22"
+         fill-opacity="0.73"
+         id="rect19" />
+      <rect
+         x="396"
+         y="120"
+         width="30"
+         height="22"
+         fill-opacity="0.66"
+         id="rect20" />
+      <rect
+         x="396"
+         y="146"
+         width="30"
+         height="22"
+         fill-opacity="0.15"
+         id="rect21" />
+      <rect
+         x="396"
+         y="172"
+         width="30"
+         height="22"
+         fill-opacity="0.08"
+         id="rect22" />
+      <rect
+         x="396"
+         y="198"
+         width="30"
+         height="22"
+         fill-opacity="0.69"
+         id="rect23" />
+      <!-- p2 -->
+      <rect
+         x="436"
+         y="94"
+         width="30"
+         height="22"
+         fill-opacity="0.69"
+         id="rect24" />
+      <rect
+         x="436"
+         y="120"
+         width="30"
+         height="22"
+         fill-opacity="0.73"
+         id="rect25" />
+      <rect
+         x="436"
+         y="146"
+         width="30"
+         height="22"
+         fill-opacity="0.12"
+         id="rect26" />
+      <rect
+         x="436"
+         y="172"
+         width="30"
+         height="22"
+         fill-opacity="0.15"
+         id="rect27" />
+      <rect
+         x="436"
+         y="198"
+         width="30"
+         height="22"
+         fill-opacity="0.66"
+         id="rect28" />
+      <rect
+         x="476.0593"
+         y="94.030594"
+         width="30"
+         height="22"
+         fill-opacity="0.69"
+         id="rect24-6" />
+      <rect
+         x="476.0593"
+         y="120.03059"
+         width="30"
+         height="22"
+         fill-opacity="0.73"
+         id="rect25-7" />
+      <rect
+         x="476.0593"
+         y="146.03059"
+         width="30"
+         height="22"
+         fill-opacity="0.12"
+         id="rect26-5" />
+      <rect
+         x="476.0593"
+         y="172.03058"
+         width="30"
+         height="22"
+         fill-opacity="0.15"
+         id="rect27-3" />
+      <rect
+         x="476.0593"
+         y="198.03059"
+         width="30"
+         height="22"
+         fill-opacity="0.66"
+         id="rect28-5" />
+      <!-- p3 -->
+    </g>
+    <!-- correlated pair -->
+    <!-- uncorrelated pair -->
+    <!-- ============ 3 · flag ============ -->
+    <!-- the ✕ on the excluded path -->
+  </g>
+  <metadata
+     id="metadata44">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Recombinant SNV detection in AccuSNV</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
