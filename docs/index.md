@@ -19,16 +19,15 @@ AccuSNV classifies candidate SNV sites as true or false SNVs using a *convolutio
 :::
 
 :::{grid-item-card} Setting up your own data
-[Input files](inputs.md) covers the sample sheet, how AccuSNV finds your FASTQ files, and how to lay out reference genomes. [Running AccuSNV](running.md) covers local runs, cluster runs, and re-running just the evolutionary analyses.
+[Input files](inputs.md) covers the sample sheet, how AccuSNV finds your FASTQ files, and how to prepare your reference genomes. [Running AccuSNV](running.md) covers local runs, cluster runs, and re-runs.
 :::
 
 :::{grid-item-card} Reading your results
-Start with [the final SNV table](snv_table.md), which documents every column. [Output files](outputs.md) is the map of everything else the run wrote.
+Start with [the final SNV table](snv_table.md), which documents every column. [Output files](outputs.md) explains everything else the run created.
 :::
 
 :::{grid-item-card} Perform evolutionary analyses
-[How SNVs are called](filters.md) explains the neural network, the nine quality checks, and how
-the two verdicts combine. [Recombination](recombination.md) and [*dN/dS*](dnds.md) explain the two analyses that people most often need to interpret carefully.
+[Phylogeny and dMRCA](phylogeny.md) explains how phylogenies are built and [dNdS calculation](dnds.md) explains how dN/dS ratios are calculated.  
 :::
 
 ::::
@@ -57,7 +56,7 @@ accusnv -m slurm -sp <partition> -i Test_data/samples_cae_test_pe.csv -r Test_da
 
 ## Output files
 
-AccuSNV creates a number of potentially useful intermediate and output files. You can read about all of them under Output files. However, the most important ones are:
+AccuSNV creates a number of potentially useful intermediate and output files. You can read about all of them under [Output files](output.md). However, the most important ones are:
 
 | File                                                              | Description                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
@@ -70,7 +69,7 @@ AccuSNV creates a number of potentially useful intermediate and output files. Yo
 
 ## All AccuSNV command line parameters
 
-```
+```bash
 usage: accusnv [-h] [--version] [-i CSV] [-r DIR] [-o DIR] [--exclude_positions FILE] [--include_positions FILE] [-c FILE] [-p FILE] [-m {dryrun,slurm,local}] [-j N] [-sp PARTITIONS] [--skip_samclip] [-e CMD] [output options]
 
 AccuSNV v1.1.0

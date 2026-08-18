@@ -71,7 +71,7 @@ Here `Path` is set to `/my_project/raw_reads/` for both samples. One folder per 
 
 ## The reference genome directory
 
-One subfolder per reference genome. Each subfolder needs a FASTA file, and should have a GFF annotation file next to it:
+There should be one subfolder per reference genome. Each subfolder needs a FASTA file, and should have a GFF annotation file next to it:
 
 ```text
 reference_genomes/
@@ -85,10 +85,8 @@ reference_genomes/
 
 * The FASTA can be named `genome.fasta`, `genome.fa` or `genome.fna`, optionally gzipped.
   AccuSNV looks for `genome.*` first, then for any other `.fasta`/`.fa`/`.fna` file in the
-  folder. The name `genome.fasta` is the safest choice.
-* Draft assemblies with many contigs are fine. AccuSNV keeps track of both a genome-wide
-  coordinate, which counts straight through all contigs, and the per-contig coordinate, and
-  reports both in the SNV table.
+  folder. 
+* Draft assemblies with many contigs are fine. AccuSNV keeps track of both a genome-wide coordinate, which counts straight through all contigs, and the per-contig coordinate, and reports both in the SNV table.
 * Avoid folder names that start with `ref_` or contain `_ref_`. AccuSNV uses `_ref_` as an
   internal filename separator, so `clade1_ref` is fine but `ref_clade1` is not.
 * The mapping indexes (`genome.fasta.bwt`, `.amb`, `.ann`, `.pac`, `.sa` and `.fai`) are built

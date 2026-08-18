@@ -75,47 +75,49 @@ sequence[gene_nt_position − 1] = complement(ancestral_allele)
 
 More details on how all of these filters work can be found on the page describing [How SNVs are called](filters.md). The nine filter columns are *not* pass/fail flags. `0` means the position passed the check, `1` means the position failed the check, and `-1` means the position had already been ruled out before that check. 
 
-| Column                       | Description                                                                                                                                     |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Pred_label`                 | The final AccuSNV call `1` means this is a SNV. `snv_table_final.tsv` contains only `1` rows while `snv_table_unfiltered` has both `0` and `1`. |
-| `CNN_pred`                   | The AccuSNV CNN's call, `1` or `0`, or `skip` when the position was one the CNN could not score. Not a probability, just its yes/no.            |
-| `WideVariant_pred`           | Whether the rule-based WideVariant filters called a variant  (`1` or `0`).                                                                      |
-| `CNN_prob`                   | The network's probability, between 0 and 1, or `skip` alongside a `skip` in `CNN_pred`.                                                          |
-| `Qual_filter`                | SNV bcftools quality (**default**: better than 30).                                                                                             |
-| `Cov_filter`                 | Whether the site has reads on both strands (**default**: at least 5x per strand).                                                               |
-| `MAF_filter`                 | Whether the site's reads within a sample agree (**default**: at least 85%).                                                                     |
-| `Indel_filter`               | Whether too many reads at the site contain an indel (**default**: fewer than 33%).                                                              |
-| `MFAS_filter`                | Whether too few samples have a base call at the site (**default**: no minimum).                                                                 |
-| `MMCP_filter`                | Whether the site is below minimum median depth across samples (**default**: at least 5x).                                                       |
-| `CPN_filter`                 | Whether there is abnormally high coverage at the site (**default**: under 4x the genome median on average, 7x in any sample).                   |
-| `Fix_filter`                 | Whether any sample differs from the inferred ancestor with at least `min_mut_qual` at the site.                                                 |
-| `Gap_filter`                 | Whether samples with the alternative allele have unusually low or high coverage compared to samples with the reference allele at the site.      |
-| `Whether_recomb`             | `1` if this SNV is part of a potential recombined tract. See [Recombination](recombination.md).                                                 |
-| `Fraction_ambiguous_samples` | Whether enough samples have clonal read support (not mixed) at the site.                                                                        |
-| `CNN_pred_raw`               | The network's call before AccuSNV rewrote `CNN_pred`. Identical to `CNN_pred` unless a rewrite happened.                                        |
-| `CNN_prob_raw`               | The network's probability before AccuSNV rewrote `CNN_prob`.                                                                                    |
+| Column                       | Description                                                                                                                                           |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Pred_label`                 | The final AccuSNV call `1` means this is a SNV. `snv_table_final.tsv` contains only `1` rows while `snv_table_unfiltered` has both `0` and `1`.       |
+| `CNN_pred`                   | The AccuSNV CNN's call, `1` or `0`, or `skip` when the position was one the CNN could not score. Not a probability, just its yes/no.                  |
+| `WideVariant_pred`           | Whether the rule-based WideVariant filters called a variant  (`1` or `0`).                                                                            |
+| `CNN_prob`                   | The network's probability, between 0 and 1, or `skip` alongside a `skip` in `CNN_pred`.                                                               |
+| `Qual_filter`                | SNV bcftools quality (**default**: better than 30).                                                                                                   |
+| `Cov_filter`                 | Whether the site has reads on both strands (**default**: at least 5x per strand).                                                                     |
+| `MAF_filter`                 | Whether the site's reads within a sample agree (**default**: at least 85%).                                                                           |
+| `Indel_filter`               | Whether too many reads at the site contain an indel (**default**: fewer than 33%).                                                                    |
+| `MFAS_filter`                | Whether too few samples have a base call at the site (**default**: no minimum).                                                                       |
+| `MMCP_filter`                | Whether the site is below minimum median depth across samples (**default**: at least 5x).                                                             |
+| `CPN_filter`                 | Whether there is abnormally high coverage at the site (**default**: under 4x the genome median on average, 7x in any sample).                         |
+| `Fix_filter`                 | Whether any sample differs from the inferred ancestor with at least `min_mut_qual` at the site.                                                       |
+| `Gap_filter`                 | Whether samples with the alternative allele have unusually low or high coverage compared to samples with the reference allele at the site.            |
+| `Whether_recomb`             | `1` if this SNV is part of a potential recombined tract. See [Recombination](recombination.md).                                                       |
+| `Fraction_ambiguous_samples` | Whether enough samples have clonal read support (not mixed) at the site.                                                                              |
+| `CNN_pred_raw`               | The CNN's call before AccuSNV rewrote `CNN_pred`. Identical to `CNN_pred` unless a rewrite happened.                                                  |
+| `CNN_prob_raw`               | The network's probability before AccuSNV rewrote `CNN_prob`.                                                                                          |
 | `Gap_reason`                 | Why the CNN never scored the site: `gap` for an alignment gap beside it, `no_variation` when every remaining sample had the same base. `.` otherwise. |
-| `Removed_by`                 | The one stage that dropped the site, or `kept`. See below.                                                                                      |
+| `Removed_by`                 | The one stage that dropped the site, or `kept`. See below.                                                                                            |
 
 ### When `CNN_pred` is rewritten
 
-`CNN_pred` and `CNN_prob` are the network's verdict after AccuSNV has reconciled it with the rule-based filters, so they are not always what the network produced. There are two rewrites:
+`CNN_pred` and `CNN_prob` are the CNN's outcome after AccuSNV has reconciled it with the rule-based filters, so they are not always what the network produced. There are two rewrites:
 
-* `Qual_filter` failed. The site is dropped whatever the network said, and `CNN_pred` and `CNN_prob` are both set to `0`.
-* The filters called the site, the network did not, and the read evidence was clean enough to override it. `CNN_pred` becomes `1` and `CNN_prob` becomes one minus the original probability (or `1.0` if the network never scored the site).
+* If `Qual_filter` failed. The site is dropped no matter what and `CNN_pred` and `CNN_prob` are both set to `0`.
+* If the WideVariant filters called the site, the network did not, and the read mappings were  rarely ambiguous. Then, `CNN_pred` becomes `1` and `CNN_prob` becomes one minus the original probability (or `1.0` if the network never scored the site).
 
-`CNN_pred_raw` and `CNN_prob_raw` hold the values from before either rewrite, so comparing the two pairs tells you which sites AccuSNV overruled. `snv_table_cnn_raw.tsv` holds the same numbers for the sites the network scored.
+`CNN_pred_raw` and `CNN_prob_raw` have the values from before either rewrite, so comparing the two pairs tells you which sites AccuSNV overruled. `snv_table_cnn_raw.tsv` has the same numbers for the sites the network scored.
 
-### `Removed_by` values
+### `Removed_by` column interpretation
 
-| Value | Meaning |
-| ----- | ------- |
-| `kept` | `Pred_label` is 1. |
-| a filter name, e.g. `Cov_filter` | The first of the nine checks to fail. Only the first reports `1`, so this is the one that did the removing. |
-| `Gap_filter` | The CNN could not score the site. `Gap_reason` says why. |
-| `not_scored_by_CNN` | The CNN did not score the site and no filter had failed. |
-| `CNN_rescue_declined` | The filters called it and the network did not, but the read evidence was too muddy to override the network. |
-| `CNN` | Only the network rejected it. |
+The Removed_by column can tell you the reasons why a site was eliminated as a potential SNV.
+
+| Value                            | Interpretation                                                                                                    |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `kept`                           | `Pred_label` is 1.                                                                                                |
+| a filter name, e.g. `Cov_filter` | The first of the WideVariant filters checks to fail, which caused the site to fail.                               |
+| `Gap_filter`                     | The CNN could not score the site.                                                                                 |
+| `not_scored_by_CNN`              | The CNN did not score the site and no filter had failed.                                                          |
+| `CNN_rescue_declined`            | The filters called it and the network did not, but `Fraction_ambiguous_samples` was too high to override the CNN. |
+| `CNN`                            | Only the CNN rejected the site.                                                                                   |
 
 ## Detailed SNV annotations
 
@@ -148,6 +150,6 @@ genome_pos  CNN_pred  CNN_prob
 96058       1         0.9999998807907104
 ```
 
-This is the best place to identify the raw CNN probability each site received, as these probabilities are later processed by AccuSNV and combined with the rule-based filters.
+This is the best place to identify the raw CNN probability each site received, as these probabilities are later processed by AccuSNV and combined with the WideVariant filters.
 
 In fast mode, with >100,000 candidate positions by default, this file is the main result and is copied to `snv_table_final.tsv` in place of the usual annotated table.

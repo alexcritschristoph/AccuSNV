@@ -7,11 +7,11 @@ Recombinant SNV tracts are identified as SNVs that:
 1. Occur within a close distance of each other, set by `recomb_distance_bp` in `pipeline.yaml` (1000 bp by default).
 2. Are almost always found in the same set of isolates, set by `recomb_corr_threshold` in `pipeline.yaml` (a Pearson correlation cutoff, 0.75 by default).
 
-```{figure} _static/figures/recombination_concept.svg
-:alt: Two pairs of nearby SNV positions, one varying independently across samples and one varying together
+```{figure} _static/figures/recombination_detectionsvg
+:alt: How recombination detection works in AccuSNV
 :width: 100%
 
-Only the second pair meets both criteria, so only it is flagged.
+.
 ```
 
 This is not intended to capture all SNVs that are possibly recombinant - only *recombinant tracts*. Identifying all possible recombinant positions across a phylogeny would require more advanced phylogenetic inference.
@@ -37,7 +37,5 @@ AccuSNV creates the file `2-SNV-filtering/group_<group>/snv_filter_recombo.png`,
 :alt: Genome-wide plot with blue lines for SNVs and red lines for flagged recombinant positions
 :width: 100%
 
-A simulated cohort containing three recombined blocks. The dense red band near position 330,000
-is one imported tract; the scattered red lines elsewhere are pairs that happened to correlate.
-```
 
+```
