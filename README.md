@@ -6,7 +6,7 @@
 
 AccuSNV is a computational pipeline designed to identify single nucleotide variants (SNVs) in short-read whole genome sequencing data between genomes in a group of bacterial isolates. 
 
-This repository is for maintaining accusnv.readthedocs.io.
+This repository is for maintaining [accusnv.readthedocs.io](https://accusnv.readthedocs.io/en/latest/index.html).
 
 Refer to the main repository at https://github.com/liaoherui/AccuSNV.
 
