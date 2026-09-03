@@ -7,30 +7,24 @@ The simplest way to install AccuSNV is via bioconda, in a new environment with P
 ```
 conda create -n accusnv python=3.12
 conda activate accusnv
-conda install -c conda-forge -c bioconda bwa bowtie2 samtools bcftools tabix sickle-trim cutadapt samclip phylip
+conda install -c bioconda accusnv
 ```
 
-If you run that, you then can install accusnv via pip in the environment:
+(you can use mamba, micromamba, or miniconda - micromamba is a very fast conda alternative)
+
+If you run that, you should be good to go. Try running `accusnv -h` to see the help menu, and continue to [quick start](quickstart.md). Everything below is additional detail.
+
+## Pip installation
+
+If you install the non-Python dependencies for AccuSNV separately on your system (see below), you can install the AccuSNV python package via pip as well:
 
 ```
 pip install accusnv
 ```
 
-Now you should be good to go!
-
-Try running `accusnv -h` to see the help menu, and continue to [quick start](quickstart.md). Everything below is additional detail.
-
-## Pip installation
-
-If you install the non-Python dependencies for AccuSNV separately on your system (see below), you can install the AccuSNV python package just via pip as well:
-
-```bash
-pip install AccuSNV
-```
-
 ## Dependencies
 
-These dependencies are not Python packages, so install them separately and make sure they are on your `PATH`.
+These are not Python packages, so install them separately and make sure they are on your `PATH` if you have not done the conda install (`conda install accusnv` installs these automatically).
 
 AccuSNV checks for all of these before it starts and names any that are missing, so you find out immediately if a dependency is unavailable.
 
@@ -45,7 +39,7 @@ AccuSNV checks for all of these before it starts and names any that are missing,
 | `cutadapt`                | Adapter trimming                                                                       |
 | `dnapars` (from `phylip`) | Building the maximum-parsimony tree                                                    |
 
-You can install these dependencies by hand with conda:
+You can also install these dependencies by hand with conda:
 
 ```bash
 conda install -c conda-forge -c bioconda bwa samclip samtools bcftools tabix sickle cutadapt phylip

@@ -23,11 +23,11 @@ AccuSNV classifies candidate SNV sites as true or false SNVs using a *convolutio
 :::
 
 :::{grid-item-card} Reading your results
-Start with [the final SNV table](snv_table.md), which documents every column. [Output files](outputs.md) explains everything else the run created.
+Start with [the final SNV table](snv_table.md), which documents every column. [Output files](outputs.md) has an explanation of all of the output files created by AccuSNV.
 :::
 
-:::{grid-item-card} Perform evolutionary analyses
-[Phylogeny and dMRCA](phylogeny.md) explains how phylogenies are built and [dNdS calculation](dnds.md) explains how dN/dS ratios are calculated.  
+:::{grid-item-card} Parallel evolution and dN/dS calculation tutorial
+A tutorial and interactive **Jupyter notebook** is [hosted on GitHub](https://github.com/alexcritschristoph/AccuSNV/blob/v1.1/docs/tutorial/ZhaoLieberman2019_Analysis.ipynb) that demonstrates how to identify genes undergoing parallel evolution, and recalculate *dN/dS* ratios from AccuSNV output. 
 :::
 
 ::::
@@ -56,11 +56,11 @@ accusnv -m slurm -sp <partition> -i Test_data/samples_cae_test_pe.csv -r Test_da
 
 ## Output files
 
-AccuSNV creates a number of potentially useful intermediate and output files. You can read about all of them under [Output files](output.md). However, the most important ones are:
+AccuSNV creates a number of potentially useful intermediate and output files. Examples for the test data can be found on the [GitHub repository](https://github.com/liaoherui/AccuSNV/tree/v1.1/Test_data/expected_output). You can read about all of them under [Output files](outputs.md). However, the most important ones are:
 
 | File                                                              | Description                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `group_<group>_snv_table_final.tsv`                               | SNV calls, one row per position, with gene and protein annotation. This is the main result. |
+| `group_<group>_snv_table_final.tsv`                               | SNV calls, one row per position, with gene and protein annotation. This is the main result. [Example](https://github.com/liaoherui/AccuSNV/blob/v1.1/Test_data/expected_output/pe_test/snv_table_final.tsv) |
 | `group_<group>_snv_dashboard.html`                                | An interactive web page for examining SNVs and showing them on an interactive tree.         |
 | `group_<group>_snv_table_unfiltered.tsv`                          | A table that also includes sites that were considered, but rejected, as potential SNVs.     |
 | `group_<group>_snv_tree_final.nwk.tree`                           | A maximum-parsimony tree of the isolates in Newick format.                                  |
@@ -72,7 +72,7 @@ AccuSNV creates a number of potentially useful intermediate and output files. Yo
 ```bash
 usage: accusnv [-h] [--version] [-i CSV] [-r DIR] [-o DIR] [--exclude_positions FILE] [--include_positions FILE] [-c FILE] [-p FILE] [-m {dryrun,slurm,local}] [-j N] [-sp PARTITIONS] [--skip_samclip] [-e CMD] [output options]
 
-AccuSNV v1.1.0
+AccuSNV v1.1.1
 High-accuracy SNV calling for bacterial isolates using deep learning.
 
 options:

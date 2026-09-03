@@ -76,6 +76,8 @@ These filters check SNV position quality across the whole group of samples.
 | `min_median_coverage_position` | `5`     | Drop a position whose median read depth across samples is below this. (`MMCP_filter`)                                                              |
 | `max_mean_copynum`             | `4`     | Drop a position whose depth averages more than this many times the genome-wide median. (`CPN_filter`)                                              |
 | `max_max_copynum`              | `7`     | As above, but for any single sample. (`CPN_filter`)                                                                                                |
+| `contig_edge_bp`               | `100`   | Drop a position this close to a contig end when its reads are also one-sided. `0` turns the filter off. (`Edge_filter`)                            |
+| `max_edge_strand_imbalance`    | `0.3`   | A position counts as one-sided when the quieter strand carries less than this share of its reads. (`Edge_filter`)                                  |
 
 ### Overruling SNVs rejected by the CNN
 

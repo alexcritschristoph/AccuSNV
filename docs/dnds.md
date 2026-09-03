@@ -74,3 +74,51 @@ gene_num_global  locus_tag           product                                num_
 `inf` is not an error. A gene with only nonsynonymous mutations has `p_nonsyn` of exactly 1, so its observed odds are infinite.
 
 :::
+
+## Recalculating *dN/dS* for subsets of genes
+
+It is pretty straightforward to recalculate *dN/dS* ratios from your AccuSNV outputs for specific subsets of genes. 
+
+This is covered in depth on the parallel evolution tutorial notebook, [found here](https://github.com/alexcritschristoph/AccuSNV/blob/v1.1/docs/tutorial/ZhaoLieberman2019_Analysis.ipynb).
+
+The key code chunk is:
+
+```
+import numpy as np
+from accusnv.downstream import dnds, snv
+from accusnv.preprocessing.utils import genomestats
+
+## Get the parallel genes, and all other genes with mutations
+gene_nums = snvs[snvs.protein_id.isin(parallel_genes.index)]['gene_num_global'].unique()
+other_gene_nums = snvs[~snvs.protein_id.isin(parallel_genes.index)]['gene_num_global'].unique()
+
+## Compute dN/dS for parallel genes vs other mutated genes
+p_exp_other = dnds.compute_expected_dnds(all_genes, mut_spec_prob)
+p_exp_par = dnds.compute_expected_dnds(all_genes, mut_spec_prob, gene_nums)
+
+## Estimate dN/dS confidence intervals
+odds = lambda p: p/(1-p) if p < 1 else np.inf
+def dnds_ci(snvs, genes, p_exp):
+    p, ci, n, s = dnds.compute_observed_dnds(snvs, genes)
+    est = odds(p)/odds(p_exp)
+    lo, hi = odds(ci[0])/odds(p_exp), odds(ci[1])/odds(p_exp)
+    return est, lo, hi, n, s
+
+## Estimates for parallel genes
+est_all, lo_all, hi_all, n_other, s_other = dnds_ci(snvs, other_gene_nums, p_exp_other)
+
+## Estimates for other genes
+est_par, lo_par, hi_par, n_par, s_par = dnds_ci(snvs, gene_nums, p_exp_par)
+
+## Values for plotting
+est = [est_all, est_par]
+err_lo = [est_all - lo_all, est_par - lo_par]
+err_hi = [hi_all - est_all, hi_par - est_par]
+
+
+print(f'Genes mutated in parallel: (N={n_par},S={s_par})')
+print("Genes mutated in parallel dN/dS: {}".format(est_par))
+
+print(f'Other genes with mutations:  (N={n_other},S={s_other})')
+print("Other genes with mutations dN/dS: {}".format(est_all))
+```

@@ -1,6 +1,6 @@
 # SNV filtering and calling
 
-In the AccuSNV pipeline, each candidate SNV is assessed in two ways: the probability from the neural network (Above >0.5), and whether it passes a set of nine filters inherited from the WideVariant pipeline. Results from both are reported in the SNV tables for every position so you can identify the reasoning behind a final call.
+In the AccuSNV pipeline, each candidate SNV is assessed in two ways: the probability from the neural network (Above >0.5), and whether it passes a set of ten filters inherited from the WideVariant pipeline. Results from both are reported in the SNV tables for every position so you can identify the reasoning behind a final call.
 
 ## Overall SNV filtering logic
 
@@ -35,8 +35,25 @@ If a SNV site passes all WideVariant filters and has few ambiguous samples, it c
 | `CPN_filter`   | Read depth is similar to the genome-wide depth, to avoid repeat regions.                                                            | under 4x the genome median on average, under 7x in any one sample              | `max_mean_copynum`, `max_max_copynum` |
 | `Fix_filter`   | At least one sample carries a confident base that differs from the inferred ancestor.                                               | mutation quality at least 1                                                    | `min_mut_qual`                        |
 | `Gap_filter`   | Variant samples must have similar depths at the site compared to the genome wide average, and to non-variant samples.               | variant samples below 5% of their median depth while the others stay above 20% | not adjustable                        |
+| `Edge_filter`  | A site near the end of a contig must not also have its reads lopsided between the two strands.                                      | within 100 bp of a contig end **and** under 30% of reads on the quieter strand | `contig_edge_bp`, `max_edge_strand_imbalance` |
 
-The first four are per sample: they are required for a sample to nominate a SNV at that position. The next five are per-position: they test a position's data across every sample at once.
+The first four are per sample: they are required for a sample to nominate a SNV at that position. The next six are per-position: they test a position's data across every sample at once.
+
+### Why `Edge_filter` needs both conditions
+
+A read pair can only be placed near the end of a contig if it points inwards, because a pair
+pointing the other way has its mate off the end. So within roughly one insert length of a contig
+end the pileup comes almost entirely from one strand, and a read that was mapped there by mistake
+never meets the reads that would outscore it. Draft assemblies break inside repeats, which is
+exactly where those mismapped reads come from, so the sites this produces look clean: full depth,
+one confident base per sample, and every other filter satisfied.
+
+Neither half of the test is safe on its own. Contig ends carry real SNVs, and some regions map
+one-sided for their own reasons well away from any end. Requiring both keeps the filter on the
+sites that show the whole signature. Set `contig_edge_bp: 0` to turn it off.
+
+Unlike the other position filters, `Edge_filter` overrules the CNN rather than being weighed
+against it, as `Qual_filter` does: a site it rejects is dropped whatever the network scored.
 
 ## Inferring the ancestral allele
 

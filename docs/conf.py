@@ -3,8 +3,8 @@
 project = 'AccuSNV'
 copyright = '2026, Lieberman Lab, MIT'
 author = 'Herui Liao, Alex Crits-Christoph and the Lieberman Lab'
-release = '1.1.0'
-version = '1.1.0'
+release = '1.1.1'
+version = '1.1.1'
 
 extensions = [
     'myst_parser',
@@ -27,7 +27,7 @@ html_favicon = '_static/figures/logo.png'
 
 html_theme_options = {
     'logo_only': False,
-    'navigation_depth': 3,
+    'navigation_depth': 1,
     'collapse_navigation': False,
     'sticky_navigation': True,
     'style_external_links': True,

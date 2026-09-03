@@ -95,6 +95,23 @@ When you have more than one group in your sample sheet, each of the primary file
 
 The SNV tables and the invariant positions are also copied in `2-SNV-filtering/group_<group>/`, the dashboard in `3-Analysis/group_<group>/`, and the tree is copied in `3-Analysis/group_<group>/phylogeny/`.
 
+## Combining results from multiple groups or lineages
+
+If you would like to combine the SNV results from many groups (e.g., multiple lineages), into a single dataframe, you can easily do so in Python with pandas:
+
+```
+import glob
+import pandas as pd
+
+tables = []
+for f in glob.glob("output_directory/group_*_snv_table_final.tsv"):
+    group = f.split("/")[-1].removeprefix("group_").split("_snv_table")[0]
+    tables.append(pd.read_csv(f, sep="\t").assign(group=group))
+
+snvs = pd.concat(tables, ignore_index=True)
+```
+
+
 ## SNV calling stage files: `2-SNV-filtering/group_<group>/`
 
 | File                                 | Description                                                                                                                                                                                                              |

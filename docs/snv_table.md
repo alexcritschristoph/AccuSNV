@@ -90,6 +90,7 @@ More details on how all of these filters work can be found on the page describin
 | `CPN_filter`                 | Whether there is abnormally high coverage at the site (**default**: under 4x the genome median on average, 7x in any sample).                         |
 | `Fix_filter`                 | Whether any sample differs from the inferred ancestor with at least `min_mut_qual` at the site.                                                       |
 | `Gap_filter`                 | Whether samples with the alternative allele have unusually low or high coverage compared to samples with the reference allele at the site.            |
+| `Edge_filter`                | Whether the site is close to a contig end (**default**: within 100 bp) *and* has its reads lopsided between strands (**default**: under 30% on the quieter one). |
 | `Whether_recomb`             | `1` if this SNV is part of a potential recombined tract. See [Recombination](recombination.md).                                                       |
 | `Fraction_ambiguous_samples` | Whether enough samples have clonal read support (not mixed) at the site.                                                                              |
 | `CNN_pred_raw`               | The CNN's call before AccuSNV rewrote `CNN_pred`. Identical to `CNN_pred` unless a rewrite happened.                                                  |
@@ -101,7 +102,7 @@ More details on how all of these filters work can be found on the page describin
 
 `CNN_pred` and `CNN_prob` are the CNN's outcome after AccuSNV has reconciled it with the rule-based filters, so they are not always what the network produced. There are two rewrites:
 
-* If `Qual_filter` failed. The site is dropped no matter what and `CNN_pred` and `CNN_prob` are both set to `0`.
+* If `Qual_filter` or `Edge_filter` failed. The site is dropped no matter what and `CNN_pred` and `CNN_prob` are both set to `0`.
 * If the WideVariant filters called the site, the network did not, and the read mappings were  rarely ambiguous. Then, `CNN_pred` becomes `1` and `CNN_prob` becomes one minus the original probability (or `1.0` if the network never scored the site).
 
 `CNN_pred_raw` and `CNN_prob_raw` have the values from before either rewrite, so comparing the two pairs tells you which sites AccuSNV overruled. `snv_table_cnn_raw.tsv` has the same numbers for the sites the network scored.
