@@ -87,7 +87,7 @@ When you have more than one group in your sample sheet, each of the primary file
 | File                                              | Description                                                                                                               |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `group_<group>_snv_table_final.tsv`               | SNV calls with all annotates. One row per position. See [The final SNV table](snv_table.md).                              |
-| `group_<group>_snv_dashboard.html`                | An interactive HTML dashboard for browsing your SNVs and their metadata. [View an example from the tutorial](group_L01_snv_dashboard.html) |
+| `group_<group>_snv_dashboard.html`                | An interactive HTML dashboard for browsing your SNVs and their metadata. <a href="group_L01_snv_dashboard.html" target="_blank">View an example from the tutorial</a> |
 | `group_<group>_snv_table_unfiltered.tsv`          | The SNV table including the rejected candidate positions, so you can see which SNV sites were dropped and why.            |
 | `group_<group>_snv_tree_final.nwk.tree`           | The maximum-parsimony tree in Newick format. See [Phylogeny and dMRCA](phylogeny.md).                                     |
 | `group_<group>_snv_table_invariant_positions.tsv` | Candidate positions where every ingroup sample agrees: any differences from the reference that all of your samples share. |
