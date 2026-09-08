@@ -2,9 +2,7 @@
 
 AccuSNV is a computational pipeline that identifies **single nucleotide variants (SNVs)** in short-read whole genome sequencing data **between genomes** in a group of bacterial isolates.
 
-AccuSNV takes FASTQ files from *three or more* bacterial isolates and a reference genome, and returns the genomic SNVs at which those isolates differ from each other, instead of just differences from references. 
-
-The pipeline then builds a parsimony **phylogenetic tree** from these SNVs, calculates the mutational distance to the most recent common ancestor (**dMRCA**), reports the impact on protein sequence for each SNV, and calculates ***dN/dS*** ratios.
+AccuSNV takes FASTQ files from *three or more* bacterial isolates and a reference genome, and returns the genomic SNVs at which those isolates differ from each other, instead of just differences from references. The pipeline builds a parsimony **phylogenetic tree** from these SNVs, calculates the mutational distance to the most recent common ancestor (**dMRCA**), reports gene annotations for each SNV, and calculates ***dN/dS*** ratios.
 
 AccuSNV classifies candidate SNV sites as true or false SNVs using a *convolutional neural network* (CNN) trained on real sequencing data from bacterial isolates to distinguish true variation from mapping errors, indels, or sequencing noise. It also runs a set of rule-based quality checks on each site, inherited from the [WideVariant](https://github.com/liebermanlab/WideVariant) pipeline. 
 
@@ -27,14 +25,14 @@ Start with [the final SNV table](snv_table.md), which documents every column. [O
 :::
 
 :::{grid-item-card} Parallel evolution and dN/dS calculation tutorial
-A tutorial and interactive **Jupyter notebook** is [hosted on GitHub](https://github.com/alexcritschristoph/AccuSNV/blob/v1.1/docs/tutorial/ZhaoLieberman2019_Analysis.ipynb) that demonstrates how to identify genes undergoing parallel evolution, and recalculate *dN/dS* ratios from AccuSNV output. 
+A **Jupyter notebook tutorial** is [hosted on GitHub](https://github.com/alexcritschristoph/AccuSNV/blob/v1.1/docs/tutorial/ZhaoLieberman2019_Analysis.ipynb) that shows how to identify genes undergoing parallel evolution and recalculate *dN/dS* ratios from AccuSNV output. 
 :::
 
 ::::
 
 ## Example outputs
 
-AccuSNV creates a SNV table, a parsimony tree, dN/dS ratios, and an interactive HTML for browsing and inspecting SNV results. You can read more about all output files at [Output files](outputs.md), and some example output files for the test data are in the [GitHub repository](https://github.com/liaoherui/AccuSNV/tree/v1.1/Test_data/expected_output). The primary outputs are:
+AccuSNV creates a SNV table, a parsimony tree, dN/dS ratios, and an interactive HTML for exploring SNV results. Read more about all output files at [Output files](outputs.md), and some example outputs for the test data are in the [GitHub repository](https://github.com/liaoherui/AccuSNV/tree/v1.1/Test_data/expected_output). The primary outputs are:
 
 | File                                                              | Description                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
