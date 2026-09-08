@@ -34,14 +34,12 @@ A tutorial and interactive **Jupyter notebook** is [hosted on GitHub](https://gi
 
 ## Example outputs
 
-AccuSNV creates a SNV table, a parsimony tree, dN/dS ratios, and an interactive HTML for browsing and inspecting SNV results.  Example output files for the test data can be found on the [GitHub repository](https://github.com/liaoherui/AccuSNV/tree/v1.1/Test_data/expected_output). You can read more about them at [Output files](outputs.md). 
-
-The most important outputs are:
+AccuSNV creates a SNV table, a parsimony tree, dN/dS ratios, and an interactive HTML for browsing and inspecting SNV results. You can read more about all output files at [Output files](outputs.md), and some example output files for the test data are in the [GitHub repository](https://github.com/liaoherui/AccuSNV/tree/v1.1/Test_data/expected_output). The primary outputs are:
 
 | File                                                              | Description                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `group_<group>_snv_table_final.tsv`                               | SNV calls with gene and protein annotations. This is the main result. [Example](https://github.com/liaoherui/AccuSNV/blob/v1.1/Test_data/expected_output/pe_test/snv_table_final.tsv) |
-| `group_<group>_snv_dashboard.html`                                | An interactive web page for exploriong the SNVs and the tree. <a href="group_L01_snv_dashboard.html" target="_blank">Example from tutorial</a> |
+| `group_<group>_snv_table_final.tsv`                               | SNV calls with gene and protein annotations. [Example](https://github.com/liaoherui/AccuSNV/blob/v1.1/Test_data/expected_output/pe_test/snv_table_final.tsv) |
+| `group_<group>_snv_dashboard.html`                                | Interactive web page for exploring the SNVs and tree. <a href="group_L01_snv_dashboard.html" target="_blank">Example from tutorial</a> |
 | `group_<group>_snv_table_unfiltered.tsv`                          | A table that also includes sites that were rejected as SNVs.     |
 | `group_<group>_snv_tree_final.nwk.tree`                           | A maximum-parsimony tree of the isolates in Newick format.                                  |
 | `3-Analysis/group_<group>/dNdS_out/`                              | Genome-wide and per-gene *dN/dS* calculations.                                              |
