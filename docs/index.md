@@ -40,9 +40,9 @@ The most important outputs are:
 
 | File                                                              | Description                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `group_<group>_snv_table_final.tsv`                               | SNV calls, one row per position, with gene and protein annotation. This is the main result. [Example](https://github.com/liaoherui/AccuSNV/blob/v1.1/Test_data/expected_output/pe_test/snv_table_final.tsv) |
-| `group_<group>_snv_dashboard.html`                                | An interactive web page for examining SNVs and showing them on an interactive tree. <a href="group_L01_snv_dashboard.html" target="_blank">Example from tutorial</a> |
-| `group_<group>_snv_table_unfiltered.tsv`                          | A table that also includes sites that were considered, but rejected, as potential SNVs.     |
+| `group_<group>_snv_table_final.tsv`                               | SNV calls with gene and protein annotations. This is the main result. [Example](https://github.com/liaoherui/AccuSNV/blob/v1.1/Test_data/expected_output/pe_test/snv_table_final.tsv) |
+| `group_<group>_snv_dashboard.html`                                | An interactive web page for exploriong the SNVs and the tree. <a href="group_L01_snv_dashboard.html" target="_blank">Example from tutorial</a> |
+| `group_<group>_snv_table_unfiltered.tsv`                          | A table that also includes sites that were rejected as SNVs.     |
 | `group_<group>_snv_tree_final.nwk.tree`                           | A maximum-parsimony tree of the isolates in Newick format.                                  |
 | `3-Analysis/group_<group>/dNdS_out/`                              | Genome-wide and per-gene *dN/dS* calculations.                                              |
 | `3-Analysis/group_<group>/phylogeny/snv_table_tree_distances.tsv` | Per-sample distance to the inferred common ancestor (dMRCA).                                |
