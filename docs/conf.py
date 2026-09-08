@@ -20,6 +20,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_extra_path = ['_html']
 html_css_files = ['custom.css']
 html_logo = '_static/figures/logo.png'
 html_title = 'AccuSNV documentation'

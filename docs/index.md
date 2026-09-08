@@ -61,11 +61,20 @@ AccuSNV creates a number of potentially useful intermediate and output files. Ex
 | File                                                              | Description                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | `group_<group>_snv_table_final.tsv`                               | SNV calls, one row per position, with gene and protein annotation. This is the main result. [Example](https://github.com/liaoherui/AccuSNV/blob/v1.1/Test_data/expected_output/pe_test/snv_table_final.tsv) |
-| `group_<group>_snv_dashboard.html`                                | An interactive web page for examining SNVs and showing them on an interactive tree.         |
+| `group_<group>_snv_dashboard.html`                                | An interactive web page for examining SNVs and showing them on an interactive tree. [Example from tutorial](group_L01_snv_dashboard.html) |
 | `group_<group>_snv_table_unfiltered.tsv`                          | A table that also includes sites that were considered, but rejected, as potential SNVs.     |
 | `group_<group>_snv_tree_final.nwk.tree`                           | A maximum-parsimony tree of the isolates in Newick format.                                  |
 | `3-Analysis/group_<group>/dNdS_out/`                              | Genome-wide and per-gene *dN/dS* calculations.                                              |
 | `3-Analysis/group_<group>/phylogeny/snv_table_tree_distances.tsv` | Per-sample distance to the inferred common ancestor (dMRCA).                                |
+
+Along with its SNV tables and tree, AccuSNV produces an interactive HTML dashboard for inspecting SNVs, the reasons why SNV sites were filtered, and their positions in the tree. [Here is an example file from the tutorial](group_L01_snv_dashboard.html).
+
+```{figure} _static/figures/dashboard_screenshot.png
+:alt: Screenshot of the AccuSNV interactive SNV dashboard
+:width: 100%
+
+Screenshot of the interactive dashboard.
+```
 
 ## All AccuSNV command line parameters
 
