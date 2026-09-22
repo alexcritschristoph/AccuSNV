@@ -193,21 +193,19 @@ These heatmaps show coverage and SNV quality across positions.
 
 ## Intermediate files
 
-The intermediate files created by AccuSNV are likely rarely needed, but can be inspected when a run has an issue  or when you want to reuse the data in another analysis.
+The intermediate files created by AccuSNV are likely rarely needed, but can be inspected when a run has an issue or when you want to reuse the data in another analysis. Per-sample files are named `<sample>_ref_<reference>` followed by the suffixes below.
 
-`1-Mapping/alignment/`: deduplicated, sorted, indexed BAM per sample (`*_aligned.sorted.bam` and `.bai`) the duplicate statistics from `samtools markdup` (`*.bam.stats.txt`). 
+`1-Mapping/alignment/`: the sorted, indexed BAM per sample with duplicates removed (`_aligned.sorted.bam` and `.bai`), and the duplicate statistics from `samtools markdup` (`.bam.stats.txt`).
 
-`1-Mapping/alignment/trimmed_filtered_reads/`:  `*_R1_trimmed.fastq.gz` and `*_R2_trimmed.fastq.gz` from `cutadapt`,  `*_R1_filtered.fastq.gz` and `*_R2_filtered.fastq.gz` from `sickle`. `*_unpaired.fastq.gz` contains reads without high quality pairs, but these are not used by the pipeline.
+`1-Mapping/alignment/trimmed_filtered_reads/`: `<sample>_R1_filtered.fastq.gz` and `<sample>_R2_filtered.fastq.gz`, the reads after adapter trimming with `cutadapt` and quality trimming with `sickle`. `<sample>_unpaired.fastq.gz` contains reads whose pair did not pass `sickle`; these are not used by the pipeline. For single-end samples, the R2 and unpaired files are empty.
 
-`1-Mapping/vcf/`: The whole-genome `strain.vcf.gz` (all genomic positions) and SNP-only `variant.vcf.gz`. `*.upstream_rejects.tsv` is each sample's rejected SNVs.
+`1-Mapping/vcf/`: the whole-genome `.strain.vcf.gz` (every covered position) and the SNP-only `.variant.vcf.gz` with its `.tbi` index. `.upstream_rejects.tsv` lists the positions `bcftools` called that were dropped before candidate selection, and which filter dropped them (alt-allele fraction or FQ score). These are combined per group into `group_<group>_snv_table_rejected_upstream.tsv`.
 
-`1-Mapping/quals/`: `*.quals.pickle.gz` is the `bcftools` FQ score at every position of the genome, and `*.positions.pickle` is the candidate SNV positions for each sample.
+`1-Mapping/quals/`: `.quals.pickle.gz` is the `bcftools` FQ score at every position of the genome, and `.positions.pickle` is the SNP positions from the variant VCF that pass the FQ cutoff (`max_fq`). Despite its name, `.positions.pickle` is gzip-compressed.
 
-`1-Mapping/diversity/`: `*.diversity.pickle.gz` has 40 statistics for every position of the genome: read counts per base per strand, average base quality, mapping quality and tail distance per base, and indel support. 
+`1-Mapping/diversity/`: `.diversity.pickle.gz` has 40 statistics for every position of the genome: read counts per base per strand, average base quality, mapping quality and tail distance per base, and indel support.
 
-`*.coverage.pickle.gz`  is the **per-position depth pulled out of the same pileup**.
-
-`2-SNV-filtering/raw_tables/`: The candidate mutation table, and `*_allpositions.pickle`, the merged list of candidate positions.
+`2-SNV-filtering/raw_tables/`: `group_<group>_candidate_mutation_table.npz`, the candidate mutation table; `group_<group>_coverage_matrix_raw.npz` and `group_<group>_coverage_matrix_norm.npz`, the read depth at every position for every sample, raw and normalized; and `group_<group>_allpositions.pickle`, the merged list of candidate positions.
 
 ## AccuSNV logs
 
